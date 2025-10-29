@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты - TEALEAF</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">TEALEAF</div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="about.html">О нас</a></li>
+                    <li><a href="contacts.html" class="active">Контакты</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <a href="cart.html" class="cart-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 2L7.17 4H3a1 1 0 00-1 1v1a1 1 0 001 1h18a1 1 0 001-1V5a1 1 0 00-1-1h-4.17L15 2H9zM5 9l1 11a2 2 0 002 2h8a2 2 0 002-2l1-11H5z"/>
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </a>
+                    <button class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Контакты</h1>
+            <p class="page-subtitle">Свяжитесь с нами удобным способом</p>
+        </div>
+    </section>
+
+    <section class="contacts-section">
+        <div class="container">
+            <div class="contacts-layout">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <h3>Телефон</h3>
+                        <p><a href="tel:+74951234567">+7 (495) 123-45-67</a></p>
+                        <p class="contact-time">Ежедневно с 9:00 до 21:00</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <p><a href="mailto:info@tealeaf.ru">info@tealeaf.ru</a></p>
+                        <p class="contact-time">Ответим в течение 24 часов</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Адрес</h3>
+                        <p>Москва, ул. Примерная, д. 1</p>
+                        <p class="contact-time">Пн-Вс: 10:00 - 20:00</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">💬</div>
+                        <h3>Социальные сети</h3>
+                        <div class="social-links-vertical">
+                            <a href="#">Instagram: @tealeaf_official</a>
+                            <a href="#">Facebook: TealeafRussia</a>
+                            <a href="#">VK: tealeaf_ru</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <h2>Напишите нам</h2>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label>Ваше имя *</label>
+                            <input type="text" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="tel" name="phone" placeholder="+7 (999) 999-99-99">
+                        </div>
+                        <div class="form-group">
+                            <label>Тема обращения *</label>
+                            <select name="subject" required>
+                                <option value="">Выберите тему</option>
+                                <option value="order">Вопрос по заказу</option>
+                                <option value="product">Вопрос о товаре</option>
+                                <option value="delivery">Доставка</option>
+                                <option value="partnership">Сотрудничество</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Сообщение *</label>
+                            <textarea name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="map-section">
+                <h2 class="section-title">Как нас найти</h2>
+                <div class="map-placeholder">
+                    <p>🗺️ Карта</p>
+                    <p class="map-text">Москва, ул. Примерная, д. 1<br>Метро "Примерная", 5 минут пешком</p>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2 class="section-title">Частые вопросы</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Как оформить заказ?
+                            <span class="faq-arrow">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Добавьте товары в корзину, перейдите в корзину и нажмите "Оформить заказ". Заполните форму с контактными данными и адресом доставки.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Какие способы оплаты доступны?
+                            <span class="faq-arrow">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Мы принимаем оплату картой онлайн, наличными при получении, а также банковский перевод для юридических лиц.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Сколько стоит доставка?
+                            <span class="faq-arrow">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Доставка по Москве стоит 300 ₽. При заказе от 5 000 ₽ доставка бесплатная. По России доставка рассчитывается индивидуально.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Как долго хранится чай?
+                            <span class="faq-arrow">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Срок хранения зависит от вида чая. Зелёный чай лучше употребить в течение года, чёрный — до 2 лет, пуэр может храниться десятилетиями. Храните чай в сухом прохладном месте в герметичной упаковке.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Можно ли вернуть товар?
+                            <span class="faq-arrow">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Да, вы можете вернуть товар в течение 14 дней с момента получения, если упаковка не вскрыта. Возврат денежных средств осуществляется в течение 10 рабочих дней.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="logo">TEALEAF</h3>
+                    <p>Премиальный чай для ценителей</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li>📧 info@tealeaf.ru</li>
+                        <li>📞 +7 (495) 123-45-67</li>
+                        <li>📍 Москва, ул. Примерная, 1</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные сети</h4>
+                    <div class="social-links">
+                        <a href="#">Instagram</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">VK</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 TEALEAF. Все права защищены</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="contactSuccessModal">
+        <div class="modal-content">
+            <h3>✓ Сообщение отправлено!</h3>
+            <p>Мы свяжемся с вами в ближайшее время</p>
+            <button class="btn btn-primary" onclick="closeContactModal()">Закрыть</button>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
