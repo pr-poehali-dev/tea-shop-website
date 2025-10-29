@@ -13,6 +13,13 @@ interface Product {
   category: string;
   origin: string;
   image: string;
+  fullDescription?: string;
+  characteristics?: {
+    weight: string;
+    brewing: string;
+    temperature: string;
+    taste: string;
+  };
 }
 
 interface CartItem extends Product {
@@ -27,7 +34,14 @@ const products: Product[] = [
     price: 2800,
     category: 'Улун',
     origin: 'Китай',
-    image: '🍵'
+    image: '🍵',
+    fullDescription: 'Да Хун Пао — один из самых известных китайских утёсных улунов, произрастающий в горах Уишань. Этот чай обладает глубоким минеральным вкусом с нотами жареных орехов, карамели и лёгкой терпкостью. Настой имеет яркий янтарный цвет и длительное послевкусие.',
+    characteristics: {
+      weight: '50 грамм',
+      brewing: '5-7 проливов',
+      temperature: '95-100°C',
+      taste: 'Минеральный, ореховый, карамельный'
+    }
   },
   {
     id: 2,
@@ -36,7 +50,14 @@ const products: Product[] = [
     price: 3200,
     category: 'Белый чай',
     origin: 'Китай',
-    image: '🫖'
+    image: '🫖',
+    fullDescription: 'Серебряные иглы — элитный белый чай из провинции Фуцзянь, состоящий исключительно из нежных почек, покрытых серебристым ворсом. Чай обладает деликатным сладковатым вкусом с цветочными нотами и медовым ароматом.',
+    characteristics: {
+      weight: '30 грамм',
+      brewing: '3-4 пролива',
+      temperature: '70-80°C',
+      taste: 'Цветочный, медовый, сладковатый'
+    }
   },
   {
     id: 3,
@@ -45,7 +66,14 @@ const products: Product[] = [
     price: 4500,
     category: 'Зелёный чай',
     origin: 'Япония',
-    image: '🍃'
+    image: '🍃',
+    fullDescription: 'Церемониальная матча высшего качества из префектуры Киото. Порошковый зелёный чай с ярким изумрудным цветом, богатым умами-вкусом и кремовой текстурой. Идеально подходит для традиционной чайной церемонии.',
+    characteristics: {
+      weight: '30 грамм',
+      brewing: 'Взбивается венчиком',
+      temperature: '70-80°C',
+      taste: 'Умами, сладковатый, травянистый'
+    }
   },
   {
     id: 4,
@@ -54,7 +82,14 @@ const products: Product[] = [
     price: 5200,
     category: 'Пуэр',
     origin: 'Китай',
-    image: '🌿'
+    image: '🌿',
+    fullDescription: 'Выдержанный сырой пуэр с 15-летней ферментацией из провинции Юньнань. Обладает сложным многогранным вкусом с древесными, фруктовыми и земляными нотами. С годами становится только лучше.',
+    characteristics: {
+      weight: '100 грамм (блин)',
+      brewing: '7-10 проливов',
+      temperature: '95-100°C',
+      taste: 'Древесный, фруктовый, землистый'
+    }
   },
   {
     id: 5,
@@ -63,7 +98,14 @@ const products: Product[] = [
     price: 2400,
     category: 'Чёрный чай',
     origin: 'Индия',
-    image: '☕'
+    image: '☕',
+    fullDescription: 'Дарджилинг первого сбора — «шампанское среди чаёв». Собирается в марте-апреле в высокогорных садах Индии. Светлый настой с мускатными нотами, цветочным ароматом и освежающей терпкостью.',
+    characteristics: {
+      weight: '50 грамм',
+      brewing: '3-4 минуты',
+      temperature: '85-90°C',
+      taste: 'Мускатный, цветочный, терпкий'
+    }
   },
   {
     id: 6,
@@ -72,14 +114,42 @@ const products: Product[] = [
     price: 3100,
     category: 'Улун',
     origin: 'Китай',
-    image: '🍵'
+    image: '🍵',
+    fullDescription: 'Те Гуань Инь — классический китайский улун из провинции Фуцзянь. Назван в честь богини милосердия. Обладает насыщенным цветочным ароматом орхидеи, сладковатым вкусом и освежающим послевкусием.',
+    characteristics: {
+      weight: '50 грамм',
+      brewing: '5-7 проливов',
+      temperature: '90-95°C',
+      taste: 'Цветочный, сладковатый, освежающий'
+    }
   }
 ];
 
 export default function Index() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'catalog' | 'about' | 'delivery' | 'contacts'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'catalog' | 'about' | 'delivery' | 'contacts' | 'product'>('home');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('Все');
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const openProduct = (product: Product) => {
+    setSelectedProduct(product);
+    setQuantity(1);
+    setCurrentPage('product');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const addToCartWithQuantity = (product: Product, qty: number) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
+        return prev.map(item =>
+          item.id === product.id ? { ...item, quantity: item.quantity + qty } : item
+        );
+      }
+      return [...prev, { ...product, quantity: qty }];
+    });
+  };
 
   const categories = ['Все', 'Улун', 'Белый чай', 'Зелёный чай', 'Пуэр', 'Чёрный чай'];
 
@@ -256,7 +326,7 @@ export default function Index() {
                 <h3 className="text-3xl font-bold font-serif text-center mb-12">Избранные сорта</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {products.slice(0, 3).map((product, idx) => (
-                    <Card key={product.id} className="transition-transform duration-300 hover:scale-105 animate-fade-in" style={{ animationDelay: `${idx * 100}ms` }}>
+                    <Card key={product.id} className="transition-transform duration-300 hover:scale-105 animate-fade-in cursor-pointer" style={{ animationDelay: `${idx * 100}ms` }} onClick={() => openProduct(product)}>
                       <CardContent className="pt-6">
                         <div className="text-6xl text-center mb-4">{product.image}</div>
                         <h4 className="text-xl font-serif font-semibold mb-2">{product.name}</h4>
@@ -268,7 +338,7 @@ export default function Index() {
                       </CardContent>
                       <CardFooter className="flex justify-between items-center">
                         <span className="text-lg font-semibold text-secondary">{product.price} ₽</span>
-                        <Button onClick={() => addToCart(product)}>
+                        <Button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>
                           <Icon name="ShoppingCart" size={18} className="mr-2" />
                           В корзину
                         </Button>
@@ -322,7 +392,7 @@ export default function Index() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {filteredProducts.map((product, idx) => (
-                  <Card key={product.id} className="transition-transform duration-300 hover:scale-105 animate-fade-in" style={{ animationDelay: `${idx * 50}ms` }}>
+                  <Card key={product.id} className="transition-transform duration-300 hover:scale-105 animate-fade-in cursor-pointer" style={{ animationDelay: `${idx * 50}ms` }} onClick={() => openProduct(product)}>
                     <CardContent className="pt-6">
                       <div className="text-6xl text-center mb-4">{product.image}</div>
                       <h4 className="text-xl font-serif font-semibold mb-2">{product.name}</h4>
@@ -334,7 +404,7 @@ export default function Index() {
                     </CardContent>
                     <CardFooter className="flex justify-between items-center">
                       <span className="text-lg font-semibold text-secondary">{product.price} ₽</span>
-                      <Button onClick={() => addToCart(product)}>
+                      <Button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>
                         <Icon name="ShoppingCart" size={18} className="mr-2" />
                         В корзину
                       </Button>
@@ -440,6 +510,152 @@ export default function Index() {
                     </div>
                   </CardContent>
                 </Card>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {currentPage === 'product' && selectedProduct && (
+          <section className="py-16">
+            <div className="container mx-auto px-4">
+              <Button 
+                variant="ghost" 
+                onClick={() => setCurrentPage('catalog')} 
+                className="mb-8"
+              >
+                <Icon name="ArrowLeft" size={20} className="mr-2" />
+                Назад к каталогу
+              </Button>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 animate-fade-in">
+                <div className="bg-gradient-to-br from-muted/30 to-background rounded-lg p-12 flex items-center justify-center">
+                  <div className="text-9xl">{selectedProduct.image}</div>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <div className="flex gap-2 mb-4">
+                      <Badge variant="secondary">{selectedProduct.category}</Badge>
+                      <Badge variant="outline">{selectedProduct.origin}</Badge>
+                    </div>
+                    <h1 className="text-4xl md:text-5xl font-bold font-serif text-primary mb-4">
+                      {selectedProduct.name}
+                    </h1>
+                    <p className="text-2xl font-semibold text-secondary mb-6">
+                      {selectedProduct.price} ₽
+                    </p>
+                  </div>
+
+                  <div className="prose prose-lg text-muted-foreground">
+                    <p>{selectedProduct.fullDescription}</p>
+                  </div>
+
+                  {selectedProduct.characteristics && (
+                    <Card>
+                      <CardContent className="pt-6">
+                        <h3 className="text-xl font-serif font-semibold mb-4">Характеристики</h3>
+                        <div className="space-y-3">
+                          <div className="flex justify-between py-2 border-b border-border">
+                            <span className="text-muted-foreground">Вес:</span>
+                            <span className="font-medium">{selectedProduct.characteristics.weight}</span>
+                          </div>
+                          <div className="flex justify-between py-2 border-b border-border">
+                            <span className="text-muted-foreground">Заваривание:</span>
+                            <span className="font-medium">{selectedProduct.characteristics.brewing}</span>
+                          </div>
+                          <div className="flex justify-between py-2 border-b border-border">
+                            <span className="text-muted-foreground">Температура:</span>
+                            <span className="font-medium">{selectedProduct.characteristics.temperature}</span>
+                          </div>
+                          <div className="flex justify-between py-2">
+                            <span className="text-muted-foreground">Вкус:</span>
+                            <span className="font-medium">{selectedProduct.characteristics.taste}</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+
+                  <div className="flex items-center gap-4 pt-4">
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      >
+                        <Icon name="Minus" size={18} />
+                      </Button>
+                      <span className="w-12 text-center text-lg font-semibold">{quantity}</span>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setQuantity(quantity + 1)}
+                      >
+                        <Icon name="Plus" size={18} />
+                      </Button>
+                    </div>
+                    <Button 
+                      size="lg" 
+                      className="flex-1"
+                      onClick={() => {
+                        addToCartWithQuantity(selectedProduct, quantity);
+                        setQuantity(1);
+                      }}
+                    >
+                      <Icon name="ShoppingCart" size={20} className="mr-2" />
+                      Добавить в корзину за {(selectedProduct.price * quantity).toLocaleString()} ₽
+                    </Button>
+                  </div>
+
+                  <div className="bg-muted/30 rounded-lg p-6 space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Icon name="Truck" size={24} className="text-secondary" />
+                      <span className="text-sm">Бесплатная доставка от 5 000 ₽</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Icon name="Shield" size={24} className="text-secondary" />
+                      <span className="text-sm">Гарантия свежести и качества</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Icon name="Award" size={24} className="text-secondary" />
+                      <span className="text-sm">Сертифицированная продукция</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-16">
+                <h3 className="text-3xl font-bold font-serif text-center mb-12">Похожие товары</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {products
+                    .filter(p => p.category === selectedProduct.category && p.id !== selectedProduct.id)
+                    .slice(0, 3)
+                    .map((product, idx) => (
+                      <Card 
+                        key={product.id} 
+                        className="transition-transform duration-300 hover:scale-105 animate-fade-in cursor-pointer" 
+                        style={{ animationDelay: `${idx * 100}ms` }}
+                        onClick={() => openProduct(product)}
+                      >
+                        <CardContent className="pt-6">
+                          <div className="text-6xl text-center mb-4">{product.image}</div>
+                          <h4 className="text-xl font-serif font-semibold mb-2">{product.name}</h4>
+                          <p className="text-sm text-muted-foreground mb-4">{product.description}</p>
+                          <div className="flex gap-2 mb-4">
+                            <Badge variant="secondary">{product.category}</Badge>
+                            <Badge variant="outline">{product.origin}</Badge>
+                          </div>
+                        </CardContent>
+                        <CardFooter className="flex justify-between items-center">
+                          <span className="text-lg font-semibold text-secondary">{product.price} ₽</span>
+                          <Button onClick={(e) => { e.stopPropagation(); addToCart(product); }}>
+                            <Icon name="ShoppingCart" size={18} className="mr-2" />
+                            В корзину
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                </div>
               </div>
             </div>
           </section>
